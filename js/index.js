@@ -10,6 +10,7 @@ anchors.forEach(anchor => {
     anchor.addEventListener(`click`, e => {
         console.log(e.target);
         e.preventDefault(); // This prevents elements default action to triggering, so no page refresh.
+        alert("This will not refresh")
         e.stopPropagation() // This prevents propagation. 
     });
     // Applies to For each on Anchor tags.
@@ -22,6 +23,15 @@ pTags.forEach(p =>{
     p.addEventListener(`mouseover`, e => {
         e.target.style.backgroundColor = 'grey';
     });
+    // On mouseenter scale change
+    p.addEventListener("mouseenter", e =>{
+        e.target.style.transition = "transform .5";
+        e.target.style.transform = "scale(1.2)";
+    });
+    // On mouseout scale change
+    p.addEventListener("mouseout", e =>{
+        e.target.style.transform = "scale(1)";
+    });
     // On mouseleave BGColor return
     p.addEventListener(`mouseleave`, e => {
         e.target.style.backgroundColor = 'white'
@@ -30,7 +40,7 @@ pTags.forEach(p =>{
     p.addEventListener(`dblclick`, e => {
         e.target.style.fontSize = '20px'
     });
-    p.addEventListener("copy", event => (p.style.color = "red"));
+    p.addEventListener("copy", e => (p.style.color = "green"));
     // Applies to For each on Anchor tags.
     p.style.borderRadius = "5px"
     p.style.padding = "5px"
@@ -38,9 +48,13 @@ pTags.forEach(p =>{
 
 
 const body = document.querySelector("body");
+// Alerts user of Read Only status
 body.addEventListener("keydown", e =>
   alert("You can NOT modify the page content!")
 );
-body.addEventListener("loadeddata", e =>{
+// 720 deg rotation animation of targeted element.
+body.addEventListener("auxclick", e =>{
     TweenMax.to(e.target, 1, {rotation:720, yoyo: true, repeat: 1});
 });
+
+window.addEventListener("load", e => console.log("Page loaded successfully."));
